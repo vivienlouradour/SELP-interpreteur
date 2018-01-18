@@ -20,11 +20,11 @@ public class Lexer {
 		try {
 			Token token = getToken();
 	
-			while (! (token instanceof EOF)) {
+			while (! (token instanceof EOFToken)) {
 				tokens.add(token);
 				token = getToken();
 			}
-			tokens.add(token); // this is the EOF token
+			tokens.add(token); // this is the EOFToken token
 		} catch (IOException e){
 			in.close(); // close the reader
 			throw e; // pass the exception up the stack
@@ -38,10 +38,11 @@ public class Lexer {
 		switch (i){
 		    case -1 :
 			    in.close();
-			    return new EOF();
+			    return new EOFToken();
 			case 13:
 			case 10:
 			case 32:
+			case '\t' :
 				i= in.read();
 				return getToken();
 			case '0' :
@@ -98,15 +99,12 @@ public class Lexer {
 					buffer.append(String.valueOf(Character.getNumericValue(i)));
 					i = in.read();
 				}
-				subToken = getTokenFromString(buffer.toString());
-				if(subToken != null)
-					return subToken;
 				bufferStr = buffer.toString();
 				switch (bufferStr){
 					case "if":
 						return new IfToken();
 					case "defun":
-						return new Defun();
+						return new DefunToken();
 					default:
 						return new IdentifierToken(bufferStr);
 				}
@@ -128,7 +126,7 @@ public class Lexer {
 					i = in.read();
 					return OpToken.EQUALS;
 				}
-				return new Defvar();
+				return new DefvarToken();
 			case '<':
 				i = in.read();
 				return OpToken.LESS;
@@ -140,17 +138,6 @@ public class Lexer {
 				return new RParToken();
 		    default :
 			    throw new UnexpectedCharacter(i);
-		}
-	}
-
-	private Token getTokenFromString(String token){
-		switch (token){
-			case "if":
-				return new IfToken();
-			case "defun":
-				return new Defun();
-			default:
-				return null;
 		}
 	}
 }

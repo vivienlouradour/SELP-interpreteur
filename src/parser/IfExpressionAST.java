@@ -15,4 +15,9 @@ public class IfExpressionAST extends ExpressionAST {
     public String toString() {
         return "IfExpression(" + exp1 + ", " + exp2 + ", " + exp3 + ")";
     }
+
+    @Override
+    public int eval() {
+        return exp1.eval() == 0 ? exp3.eval() : exp2.eval();
+    }
 }
