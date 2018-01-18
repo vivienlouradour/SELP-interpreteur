@@ -17,4 +17,25 @@ public class BinaryExpressionAST extends ExpressionAST {
     public String toString() {
         return "BinaryExpression(" + this.operande + " " + this.leftExpression + " " + this.rightExpression + ")";
     }
+
+    @Override
+    public int eval() {
+        int val1 = this.leftExpression.eval();
+        int val2 = this.rightExpression.eval();
+        switch (this.operande){
+            case MINUS:
+                return val1 - val2;
+            case DIVIDE:
+                return val1 / val2;
+            case PLUS:
+                return val1 + val2;
+            case TIMES:
+                return val1 * val2;
+            case EQUALS:
+                return val1 == val2 ? 1 : 0;
+            case LESS:
+                return val1 < val2 ? 1 : 0;
+                default: return -1;
+        }
+    }
 }

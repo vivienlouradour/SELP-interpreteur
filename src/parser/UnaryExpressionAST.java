@@ -13,4 +13,9 @@ public class UnaryExpressionAST extends ExpressionAST {
     public String toString() {
         return  "UnaryExpression(" + this.expressionAST + ")";
     }
+
+    @Override
+    public int eval() {
+        return -1*(this.expressionAST.eval());
+    }
 }

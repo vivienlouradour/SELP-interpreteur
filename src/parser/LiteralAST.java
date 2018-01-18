@@ -11,4 +11,9 @@ public class LiteralAST extends ExpressionAST{
     public String toString() {
         return "Litteral(" + String.valueOf(this.value) + ")";
     }
+
+    @Override
+    public int eval() {
+        return this.value;
+    }
 }
