@@ -48,4 +48,6 @@ public abstract class ExpressionAST extends AST{
         else
             throw new SyntaxException("Syntax error");
     }
+
+    public abstract int eval();
 }
