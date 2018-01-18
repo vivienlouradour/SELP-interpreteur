@@ -28,7 +28,6 @@ public class Calc {
             if(!(fin instanceof EOFToken)) {
                 throw new SyntaxException("Une seule expression attendue");
             }
-
 //        }
 //        catch (Exception e) {
 //            e.printStackTrace();
