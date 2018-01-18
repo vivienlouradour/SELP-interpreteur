@@ -14,10 +14,11 @@ public class TestParser {
         if ( args.length>0 ) {
             inputFile = args[0];
         }
+
         try {
             SLexer.init(inputFile);
             AST arbre = ExpressionAST.parse(SLexer.getToken());
-            System.out.println(arbre.toString());
+            System.out.println(arbre.eval());
         }
         catch (Exception e) {
             e.printStackTrace();
