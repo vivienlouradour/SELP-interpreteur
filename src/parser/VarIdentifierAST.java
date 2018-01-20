@@ -1,5 +1,7 @@
 package parser;
 
+import lexer.tokens.IdentifierToken;
+
 public class VarIdentifierAST extends ExpressionAST {
     private String value;
 

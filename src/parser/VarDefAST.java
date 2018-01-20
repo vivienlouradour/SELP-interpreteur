@@ -2,12 +2,17 @@ package parser;
 
 public class VarDefAST extends AST {
 
-    public static VarDefAST parse(){
+    private VarIdentifierAST varId;
+    private ExpressionAST expr;
 
+    public VarDefAST(VarIdentifierAST varId, ExpressionAST expression){
+        this.varId = varId;
+        this.expr = expression;
     }
+
 
     @Override
     public String toString() {
-        return null;
+        return "( = " + this.varId + " " + this.expr + " )";
     }
 }
