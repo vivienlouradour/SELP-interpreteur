@@ -12,13 +12,13 @@ public class SLexer {
             lexer = new Lexer(is);
     }
 
-    public static Token getToken(){
-        try {
+    public static Token getToken() throws Exception{
+//        try {
             return lexer.getToken();
-        }
-        catch (Exception ex){
-            System.err.println(ex.getMessage());
-            return null;
-        }
+//        }
+//        catch (Exception ex){
+//            System.err.println(ex.getMessage());
+//            return null;
+//        }
     }
 }

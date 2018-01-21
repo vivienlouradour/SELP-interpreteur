@@ -1,5 +1,6 @@
 package parser;
 
+import eval.State;
 import lexer.tokens.IdentifierToken;
 
 public class VarIdentifierAST extends ExpressionAST {
@@ -17,7 +18,15 @@ public class VarIdentifierAST extends ExpressionAST {
     }
 
     @Override
-    public int eval() {
-        return 0;
+    public int eval(State<Integer> state) {
+        Integer value = state.lookup(this.value);
+        if(value == null)
+            throw new SemanticException(this + " was not declared.");
+        return value;
+        //return state.lookup(this.value);
+    }
+
+    public String getValue(){
+        return this.value;
     }
 }

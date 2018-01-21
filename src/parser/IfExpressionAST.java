@@ -1,5 +1,7 @@
 package parser;
 
+import eval.State;
+
 public class IfExpressionAST extends ExpressionAST {
     private ExpressionAST exp1;
     private ExpressionAST exp2;
@@ -17,7 +19,7 @@ public class IfExpressionAST extends ExpressionAST {
     }
 
     @Override
-    public int eval() {
-        return exp1.eval() == 0 ? exp3.eval() : exp2.eval();
+    public int eval(State<Integer> state) {
+        return exp1.eval(state) == 0 ? exp3.eval(state) : exp2.eval(state);
     }
 }
