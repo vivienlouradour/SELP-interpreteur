@@ -26,7 +26,7 @@ public class Calc {
         }
 
         SLexer.init(inputFile);
-        BodyAST.vDefs = new ArrayList<>();
+        BodyAST.init();
         BodyAST arbre = BodyAST.parse(SLexer.getToken());
         System.out.println(arbre.eval());
 

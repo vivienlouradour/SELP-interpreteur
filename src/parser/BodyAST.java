@@ -12,9 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BodyAST extends AST {
-    public static List<VarDefAST> vDefs = new ArrayList<>();
+    /**
+     * Variable static servant pendant le parsing du Body
+     */
+    private static List<VarDefAST> vDefs = new ArrayList<>();
+
+    /**
+     * Variables d'instance représentant le Body
+     */
     private List<VarDefAST> defs;
     private ExpressionAST exp;
+
+    /**
+     * Méthode à appeler avant la méhode parse pour réinitialiser la liste static vDefs
+     */
+    public static void init(){
+        vDefs = new ArrayList<>();
+    }
 
     public static BodyAST parse(Token token) throws Exception{
         //Si c'est un '(' => VarDef ou Expression composite de fin du Body
