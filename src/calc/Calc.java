@@ -15,46 +15,40 @@ import java.util.List;
 
 public class Calc {
     public static void main(String[] args)  throws Exception{
-        //pisteVerte(args);
-        pisteBleue(args);
-    }
-
-    private static void pisteBleue(String[] args) throws Exception{
         String inputFile = null;
         if(args.length > 0){
             inputFile = args[0];
         }
 
         SLexer.init(inputFile);
-        BodyAST arbre = BodyAST.parseComposite(SLexer.getToken(), new ArrayList<>());
-        System.out.println(arbre.eval());
+
+//        pisteVerte(args);
+//        pisteBleue(args);
+        pisteRouge(args);
 
         Token fin = SLexer.getToken();
         if(!(fin instanceof EOFToken))
             throw new SyntaxException("Un seul body attendu");
     }
 
-    private static void pisteVerte(String[] args) throws Exception{
-        String inputFile = null;
-        if ( args.length>0 ) {
-            inputFile = args[0];
-        }
+    private static void pisteRouge(String[] args) throws Exception{
+        ProgramAST programAST = ProgramAST.parse(SLexer.getToken());
+        System.out.println(programAST.eval());
 
-        //Pas de bloc try-catch pour permettre la gestion des exceptions dans les classes de Test.
-//        try {
-        SLexer.init(inputFile);
+
+    }
+
+    private static void pisteBleue(String[] args) throws Exception{
+        BodyAST arbre = BodyAST.parse(SLexer.getToken(), new ArrayList<>());
+        System.out.println(arbre.eval());
+
+
+    }
+
+    private static void pisteVerte(String[] args) throws Exception {
         ExpressionAST arbre = ExpressionAST.parse(SLexer.getToken());
-        Token fin = SLexer.getToken();
         System.out.println(arbre.eval(new State<>()));
 
-        //On vérifie qu'il n'y ai bien qu'une expression (à supprimer par la suite...)
-        if(!(fin instanceof EOFToken)) {
-            throw new SyntaxException("Une seule expression attendue");
-        }
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
 

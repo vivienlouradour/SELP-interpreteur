@@ -55,7 +55,7 @@ public abstract class ExpressionAST extends AST{
                 throw new SyntaxException("Missing closing prenthesis (found : " + last + ")");
         }
         else
-            throw new SyntaxException("Unexpected expression");
+            throw new SyntaxException("Unexpected expression (" + token2 +")");
     }
 
     public abstract int eval(State<Integer> state);

@@ -13,25 +13,28 @@ public class BodyAST extends AST {
     private List<VarDefAST> defs;
     private ExpressionAST exp;
 
-    public static BodyAST parseComposite(Token token, List<VarDefAST> vDefs) throws Exception{
+    public static BodyAST parse(Token token, List<VarDefAST> vDefs) throws Exception{
         //Si c'est un '(' => VarDef ou Expression composite de fin du Body
         if(token instanceof LParToken){
-            Token token2 = SLexer.getToken();
-            //Si c'est un '=' => VarDef
-            if(token2 instanceof DefvarToken){
-                VarDefAST defAST = VarDefAST.parse(SLexer.getToken());
-                vDefs.add(defAST);
-                return parseComposite(SLexer.getToken(), vDefs);
-            }
-            //Sinon c'est l'Expression composite de fin du body
-            else {
-                ExpressionAST expr = ExpressionAST.parseComposite(token2);
-                return new BodyAST(vDefs, expr);
-            }
+            return parseComposite(SLexer.getToken(), vDefs);
         }
         //Sinon c'est une Expression simple de fin du Body
         else{
             return parseSimple(token, vDefs);
+        }
+    }
+
+    public static BodyAST parseComposite(Token token, List<VarDefAST> vDefs)throws Exception{
+        //Si c'est un '=' => VarDef
+        if(token instanceof DefvarToken){
+            VarDefAST defAST = VarDefAST.parse(SLexer.getToken());
+            vDefs.add(defAST);
+            return parse(SLexer.getToken(), vDefs);
+        }
+        //Sinon c'est l'Expression composite de fin du body
+        else {
+            ExpressionAST expr = ExpressionAST.parseComposite(token);
+            return new BodyAST(vDefs, expr);
         }
     }
 
