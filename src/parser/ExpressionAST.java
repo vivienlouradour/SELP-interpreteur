@@ -50,7 +50,7 @@ public abstract class ExpressionAST extends AST{
             ExpressionAST exp3 = ExpressionAST.parse(SLexer.getToken());
             Token last = SLexer.getToken();
             if(last instanceof RParToken)
-                return new IfExpressionAST(exp1, exp2, exp3);
+                return new ConditionalExpressionAST(exp1, exp2, exp3);
             else
                 throw new SyntaxException("Missing closing prenthesis (found : " + last + ")");
         }

@@ -2,12 +2,12 @@ package parser;
 
 import eval.State;
 
-public class IfExpressionAST extends ExpressionAST {
+public class ConditionalExpressionAST extends ExpressionAST {
     private ExpressionAST exp1;
     private ExpressionAST exp2;
     private ExpressionAST exp3;
 
-    public IfExpressionAST(ExpressionAST exp1, ExpressionAST exp2, ExpressionAST exp3){
+    public ConditionalExpressionAST(ExpressionAST exp1, ExpressionAST exp2, ExpressionAST exp3){
         this.exp1 = exp1;
         this.exp2 = exp2;
         this.exp3 = exp3;
