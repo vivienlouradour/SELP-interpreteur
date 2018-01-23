@@ -4,33 +4,16 @@ import eval.State;
 import lexer.SLexer;
 import lexer.Token;
 import lexer.tokens.DefvarToken;
-import lexer.tokens.IdentifierToken;
 import lexer.tokens.LParToken;
-import lexer.tokens.RParToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BodyAST extends AST {
-    /**
-     * Variable static servant pendant le parsing du Body
-     */
-    private static List<VarDefAST> vDefs = new ArrayList<>();
-
-    /**
-     * Variables d'instance représentant le Body
-     */
     private List<VarDefAST> defs;
     private ExpressionAST exp;
 
-    /**
-     * Méthode à appeler avant la méhode parse pour réinitialiser la liste static vDefs
-     */
-    public static void init(){
-        vDefs = new ArrayList<>();
-    }
-
-    public static BodyAST parse(Token token) throws Exception{
+    public static BodyAST parseComposite(Token token, List<VarDefAST> vDefs) throws Exception{
         //Si c'est un '(' => VarDef ou Expression composite de fin du Body
         if(token instanceof LParToken){
             Token token2 = SLexer.getToken();
@@ -38,7 +21,7 @@ public class BodyAST extends AST {
             if(token2 instanceof DefvarToken){
                 VarDefAST defAST = VarDefAST.parse(SLexer.getToken());
                 vDefs.add(defAST);
-                return parse(SLexer.getToken());
+                return parseComposite(SLexer.getToken(), vDefs);
             }
             //Sinon c'est l'Expression composite de fin du body
             else {
@@ -48,14 +31,13 @@ public class BodyAST extends AST {
         }
         //Sinon c'est une Expression simple de fin du Body
         else{
-            return parseSimpleBody(token, vDefs);
+            return parseSimple(token, vDefs);
         }
-
     }
 
-    private static BodyAST parseSimpleBody(Token token, List<VarDefAST> vDefs){
-        ExpressionAST expressionAST = ExpressionAST.parseSimple(token);
-        return new BodyAST(vDefs, expressionAST);
+    public static BodyAST parseSimple(Token token, List<VarDefAST> vDefs)throws Exception{
+        ExpressionAST exp = ExpressionAST.parseSimple(token);
+        return new BodyAST(vDefs, exp);
     }
 
 
