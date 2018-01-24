@@ -1,5 +1,6 @@
 package parser;
 
+import eval.State;
 import lexer.SLexer;
 import lexer.Token;
 import lexer.tokens.DefunToken;
@@ -14,6 +15,10 @@ public class ProgramAST extends AST {
     private List<FuncDefAST> funcDefs;
     private BodyAST body;
 
+
+    public static void init(){
+        staticFuncDefs = new ArrayList<>();
+    }
 
     public static ProgramAST parse(Token token)throws Exception{
         //Si c'est un '(' -> funcdef ou BodyComposite
@@ -38,13 +43,14 @@ public class ProgramAST extends AST {
     }
 
     public ProgramAST(List<FuncDefAST> funcDefs, BodyAST body){
-        this.body = body;
         this.funcDefs = funcDefs;
+        this.body = body;
     }
 
     public int eval(){
-        //TODO eval defunc
-        return this.body.eval();
+        State<FuncDefAST> funcs = new State<>();
+        this.funcDefs.forEach(funcDef -> funcDef.eval(funcs));
+        return this.body.eval(new State<>(), funcs);
     }
 
     @Override

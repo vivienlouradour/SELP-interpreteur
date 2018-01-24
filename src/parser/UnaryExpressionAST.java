@@ -16,8 +16,8 @@ public class UnaryExpressionAST extends ExpressionAST {
     }
 
     @Override
-    public int eval(State<Integer> state) {
+    public int eval(State<Integer> state, State<FuncDefAST> funcs) {
 
-        return -1*(this.expressionAST.eval(state));
+        return -1*(this.expressionAST.eval(state, funcs));
     }
 }

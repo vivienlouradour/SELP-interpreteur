@@ -18,7 +18,7 @@ public class VarIdentifierAST extends ExpressionAST {
     }
 
     @Override
-    public int eval(State<Integer> state) {
+    public int eval(State<Integer> state, State<FuncDefAST> funcs) {
         Integer value = state.lookup(this.value);
         if(value == null)
             throw new SemanticException(this + " was not declared.");

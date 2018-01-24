@@ -35,14 +35,14 @@ public class VarDefAST extends AST {
         this.expr = expr;
     }
 
-    public void eval(State<Integer> state){
+    public void eval(State<Integer> vars, State<FuncDefAST> funcs){
         String key = this.varId.getValue();
-        Integer value = state.lookup(key);
+        Integer value = vars.lookup(key);
         //On ne peut pas redéfinir une variable
         if(value != null)
             throw new SemanticException(this.varId + " déjà déclarée dans ce Body.");
 
-        state.bind(key, this.expr.eval(state));
+        vars.bind(key, this.expr.eval(vars, funcs));
     }
 
     @Override

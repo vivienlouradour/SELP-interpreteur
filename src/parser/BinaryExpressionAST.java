@@ -20,9 +20,9 @@ public class BinaryExpressionAST extends ExpressionAST {
     }
 
     @Override
-    public int eval(State<Integer> state) {
-        int val1 = this.leftExpression.eval(state);
-        int val2 = this.rightExpression.eval(state);
+    public int eval(State<Integer> state, State<FuncDefAST> funcs) {
+        int val1 = this.leftExpression.eval(state, funcs);
+        int val2 = this.rightExpression.eval(state, funcs);
         switch (this.operande){
             case MINUS:
                 return val1 - val2;

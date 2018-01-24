@@ -15,7 +15,7 @@ public class LiteralAST extends ExpressionAST{
     }
 
     @Override
-    public int eval(State<Integer> state) {
+    public int eval(State<Integer> state, State<FuncDefAST> funcs) {
         return this.value;
     }
 }

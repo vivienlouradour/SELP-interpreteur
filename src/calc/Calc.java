@@ -32,6 +32,7 @@ public class Calc {
     }
 
     private static void pisteRouge(String[] args) throws Exception{
+        ProgramAST.init();
         ProgramAST programAST = ProgramAST.parse(SLexer.getToken());
         System.out.println(programAST.eval());
 
@@ -40,14 +41,14 @@ public class Calc {
 
     private static void pisteBleue(String[] args) throws Exception{
         BodyAST arbre = BodyAST.parse(SLexer.getToken(), new ArrayList<>());
-        System.out.println(arbre.eval());
+        //System.out.println(arbre.eval());
 
 
     }
 
     private static void pisteVerte(String[] args) throws Exception {
         ExpressionAST arbre = ExpressionAST.parse(SLexer.getToken());
-        System.out.println(arbre.eval(new State<>()));
+        //System.out.println(arbre.eval(new State<>()));
 
     }
 

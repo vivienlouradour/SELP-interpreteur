@@ -19,7 +19,7 @@ public class ConditionalExpressionAST extends ExpressionAST {
     }
 
     @Override
-    public int eval(State<Integer> state) {
-        return exp1.eval(state) == 0 ? exp3.eval(state) : exp2.eval(state);
+    public int eval(State<Integer> state, State<FuncDefAST> funcs) {
+        return exp1.eval(state, funcs) == 0 ? exp3.eval(state, funcs) : exp2.eval(state, funcs);
     }
 }

@@ -13,6 +13,7 @@ public class BodyAST extends AST {
     private List<VarDefAST> defs;
     private ExpressionAST exp;
 
+
     public static BodyAST parse(Token token, List<VarDefAST> vDefs) throws Exception{
         //Si c'est un '(' => VarDef ou Expression composite de fin du Body
         if(token instanceof LParToken){
@@ -50,11 +51,10 @@ public class BodyAST extends AST {
     }
 
 
-    public int eval() {
-        State<Integer> vars = new State<>();
-        this.defs.forEach(varDefAST -> varDefAST.eval(vars));
+    public int eval(State<Integer> args,  State<FuncDefAST> funcs) {
+        this.defs.forEach(varDefAST -> varDefAST.eval(args, funcs));
 
-        return this.exp.eval(vars);
+        return this.exp.eval(args, funcs);
     }
 
     @Override

@@ -5,6 +5,9 @@ import lexer.SLexer;
 import lexer.Token;
 import lexer.tokens.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class ExpressionAST extends AST{
 
     public static ExpressionAST parse(Token token) throws Exception{
@@ -54,10 +57,20 @@ public abstract class ExpressionAST extends AST{
             else
                 throw new SyntaxException("Missing closing prenthesis (found : " + last + ")");
         }
+        else if(token2 instanceof IdentifierToken){
+            FuncIdentifierAST funcId = new FuncIdentifierAST(token2.toString());
+            List<ExpressionAST> expressions = new ArrayList<>();
+            Token token3 = SLexer.getToken();
+            while (!(token3 instanceof RParToken)){
+                expressions.add(ExpressionAST.parse(token3));
+                token3 = SLexer.getToken();
+            }
+            return new FuncCallAST(funcId, expressions);
+        }
         else
             throw new SyntaxException("Unexpected expression (" + token2 +")");
     }
 
-    public abstract int eval(State<Integer> state);
+    public abstract int eval(State<Integer> state, State<FuncDefAST> funcs);
 
 }
