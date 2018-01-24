@@ -48,9 +48,7 @@ public class FuncDefAST extends AST{
         }
     }
 
-
-
-        public HeadAST getHead() {
+    public HeadAST getHead() {
         return head;
     }
 
