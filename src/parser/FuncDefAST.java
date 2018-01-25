@@ -37,23 +37,21 @@ public class FuncDefAST extends AST{
     }
 
     //Appel d'une fonction
-    public int eval(List<Integer> args, State<Integer> vars, State<FuncDefAST> funcs){
-        bindArguments(this.head.getVarIds(), args, vars);
+    public int eval(List<Integer> args, State<FuncDefAST> funcs){
+        State<Integer> vars = bindArguments(this.head.getVarIds(), args);
         return this.body.eval(vars, funcs);
     }
 
-    private void bindArguments(List<VarIdentifierAST> formals, List<Integer> args, State<Integer> vars){
+    private State<Integer> bindArguments(List<VarIdentifierAST> formals, List<Integer> args){
+        State<Integer> vars = new State<>();
         for (int i =0 ; i< formals.size(); i++) {
             vars.bind(formals.get(i).getValue(), args.get(i));
         }
+        return vars;
     }
 
     public HeadAST getHead() {
         return head;
-    }
-
-    public BodyAST getBody() {
-        return body;
     }
 
     @Override

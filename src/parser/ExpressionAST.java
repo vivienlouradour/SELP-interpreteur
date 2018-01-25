@@ -10,6 +10,12 @@ import java.util.List;
 
 public abstract class ExpressionAST extends AST{
 
+    /**
+     * Parse un objet Expression à partir du premier caractère (que ce soit une '(' ou non)
+     * @param token
+     * @return
+     * @throws Exception
+     */
     public static ExpressionAST parse(Token token) throws Exception{
         if(token instanceof LParToken){
             Token token2 = SLexer.getToken();
@@ -19,6 +25,11 @@ public abstract class ExpressionAST extends AST{
             return parseSimple(token);
     }
 
+    /**
+     * Parse un objet Expression à partir du 1er caractère,en sachant qu'il ne s'agit pas d'une '('
+     * @param token
+     * @return
+     */
     public static ExpressionAST parseSimple(Token token){
         if (token instanceof IdentifierToken){
             return new VarIdentifierAST(((IdentifierToken)token).getValue());
@@ -29,6 +40,12 @@ public abstract class ExpressionAST extends AST{
             throw new SyntaxException("Syntax error");
     }
 
+    /**
+     * Parse un objet Expression à partir du 2e caractère,en sachant que le premier était une '('
+     * @param token2
+     * @return
+     * @throws Exception
+     */
     public static ExpressionAST parseComposite(Token token2) throws Exception{
         //Si c'est un opérande => BinnaryExpression ou UnaryExpression
         if(token2 instanceof OpToken){

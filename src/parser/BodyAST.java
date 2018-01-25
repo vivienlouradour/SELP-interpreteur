@@ -6,7 +6,6 @@ import lexer.Token;
 import lexer.tokens.DefvarToken;
 import lexer.tokens.LParToken;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BodyAST extends AST {
@@ -14,6 +13,13 @@ public class BodyAST extends AST {
     private ExpressionAST exp;
 
 
+    /**
+     * Parse un objet Body à partir du premier caractère (que ce soit une '(' ou non)
+     * @param token
+     * @param vDefs
+     * @return
+     * @throws Exception
+     */
     public static BodyAST parse(Token token, List<VarDefAST> vDefs) throws Exception{
         //Si c'est un '(' => VarDef ou Expression composite de fin du Body
         if(token instanceof LParToken){
@@ -25,6 +31,13 @@ public class BodyAST extends AST {
         }
     }
 
+    /**
+     * Parse un objet Body à partir du 2e caractère,en sachant que le premier était une '('
+     * @param token
+     * @param vDefs
+     * @return
+     * @throws Exception
+     */
     public static BodyAST parseComposite(Token token, List<VarDefAST> vDefs)throws Exception{
         //Si c'est un '=' => VarDef
         if(token instanceof DefvarToken){
@@ -39,6 +52,13 @@ public class BodyAST extends AST {
         }
     }
 
+    /**
+     * Parse un objet Body à partir du 1er caractère,en sachant qu'il ne s'agit pas d'une '('
+     * @param token
+     * @param vDefs
+     * @return
+     * @throws Exception
+     */
     public static BodyAST parseSimple(Token token, List<VarDefAST> vDefs)throws Exception{
         ExpressionAST exp = ExpressionAST.parseSimple(token);
         return new BodyAST(vDefs, exp);

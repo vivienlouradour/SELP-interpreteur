@@ -1,7 +1,6 @@
 package parser;
 
 import eval.State;
-import lexer.tokens.IdentifierToken;
 
 public class VarIdentifierAST extends ExpressionAST {
     private String value;
@@ -23,7 +22,6 @@ public class VarIdentifierAST extends ExpressionAST {
         if(value == null)
             throw new SemanticException(this + " was not declared.");
         return value;
-        //return state.lookup(this.value);
     }
 
     public String getValue(){

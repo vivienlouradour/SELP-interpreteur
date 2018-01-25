@@ -1,25 +1,29 @@
 package lexer;
+
 import lexer.tokens.*;
 
-import java.util.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Lexer {
 	private InputStream in;
 	private int i; // current ASCII character (coded as an integer)
-	
+
 	public Lexer(InputStream in) throws IOException {
 		this.in = in;
 		i = in.read(); // initialize current character
 	}
-	
+
+
 	public List<Token> lex() throws UnexpectedCharacter, IOException {
 		// return the list of tokens recorded in the file
 		List<Token> tokens = new ArrayList<Token>();
-		
+
 		try {
 			Token token = getToken();
-	
+
 			while (! (token instanceof EOFToken)) {
 				tokens.add(token);
 				token = getToken();

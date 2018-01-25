@@ -1,11 +1,13 @@
 package calc;
 
-import eval.State;
 import lexer.Lexer;
 import lexer.SLexer;
 import lexer.Token;
 import lexer.tokens.EOFToken;
-import parser.*;
+import parser.BodyAST;
+import parser.ExpressionAST;
+import parser.ProgramAST;
+import parser.SyntaxException;
 
 import java.io.FileInputStream;
 import java.io.IOException;

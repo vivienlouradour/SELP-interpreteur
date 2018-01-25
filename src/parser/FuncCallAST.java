@@ -21,7 +21,7 @@ public class FuncCallAST extends ExpressionAST{
     public int eval(State<Integer> vars, State<FuncDefAST> funcs) {
         FuncDefAST func = funcs.lookup(this.funcId.getValue());
         if(func == null)
-            throw new SemanticException("La fonction (" + this.funcId.getValue() + ") n'a pas été définie (todo : rendre ça possible).");
+            throw new SemanticException("La fonction (" + this.funcId.getValue() + ") n'a pas été définie.");
         if(func.getHead().getVarIds().size() != this.expressions.size())
             throw new SemanticException("La fonction (" + this.funcId.getValue() + ") n'a pas le bon nombre de paramètres");
 
@@ -30,7 +30,7 @@ public class FuncCallAST extends ExpressionAST{
             args.add(expr.eval(vars, funcs));
         }
 
-        return func.eval(args ,vars, funcs);
+        return func.eval(args, funcs);
     }
 
     @Override
