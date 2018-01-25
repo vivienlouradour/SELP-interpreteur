@@ -1,5 +1,6 @@
 package parser;
 
+import eval.State;
 import lexer.tokens.OpToken;
 
 public class BinaryExpressionAST extends ExpressionAST {
@@ -19,9 +20,9 @@ public class BinaryExpressionAST extends ExpressionAST {
     }
 
     @Override
-    public int eval() {
-        int val1 = this.leftExpression.eval();
-        int val2 = this.rightExpression.eval();
+    public int eval(State<Integer> state, State<FuncDefAST> funcs) {
+        int val1 = this.leftExpression.eval(state, funcs);
+        int val2 = this.rightExpression.eval(state, funcs);
         switch (this.operande){
             case MINUS:
                 return val1 - val2;

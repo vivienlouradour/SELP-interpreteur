@@ -14,7 +14,7 @@ public class TestLexer {
 	 */
 	public static void main(String[] args) throws Exception {
 		List<Token> tokens;
-		String inputFile = null;
+		String inputFile;
 		InputStream is = System.in;
 		if ( args.length>0 ) {
 			inputFile = args[0];

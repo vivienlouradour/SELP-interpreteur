@@ -1,6 +1,6 @@
 package parser;
 
-import lexer.tokens.OpToken;
+import eval.State;
 
 public class UnaryExpressionAST extends ExpressionAST {
     private ExpressionAST expressionAST;
@@ -15,7 +15,7 @@ public class UnaryExpressionAST extends ExpressionAST {
     }
 
     @Override
-    public int eval() {
-        return -1*(this.expressionAST.eval());
+    public int eval(State<Integer> state, State<FuncDefAST> funcs) {
+        return -1*(this.expressionAST.eval(state, funcs));
     }
 }

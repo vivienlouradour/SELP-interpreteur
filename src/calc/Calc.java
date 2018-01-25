@@ -1,36 +1,35 @@
 package calc;
 
+import lexer.Lexer;
 import lexer.SLexer;
 import lexer.Token;
 import lexer.tokens.EOFToken;
-import parser.AST;
+import parser.BodyAST;
 import parser.ExpressionAST;
+import parser.ProgramAST;
 import parser.SyntaxException;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Calc {
     public static void main(String[] args)  throws Exception{
-        List<Token> tokens;
         String inputFile = null;
-        if ( args.length>0 ) {
+        if(args.length > 0){
             inputFile = args[0];
         }
 
-        //Pas de bloc try-catch pour permettre la gestion des exceptions dans les classes de Test.
-//        try {
-            SLexer.init(inputFile);
-            AST arbre = ExpressionAST.parse(SLexer.getToken());
-            Token fin = SLexer.getToken();
-            System.out.println(arbre.eval());
+        SLexer.init(inputFile);
 
-            //On vérifie qu'il n'y ai bien qu'une expression (à supprimer par la suite...)
-            if(!(fin instanceof EOFToken)) {
-                throw new SyntaxException("Une seule expression attendue");
-            }
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        ProgramAST.init();
+        ProgramAST programAST = ProgramAST.parse(SLexer.getToken());
+        System.out.println(programAST.eval());
+
+        Token fin = SLexer.getToken();
+        if(!(fin instanceof EOFToken))
+            throw new SyntaxException("Un seul body attendu");
     }
 }

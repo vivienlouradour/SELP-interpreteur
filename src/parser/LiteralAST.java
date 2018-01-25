@@ -1,6 +1,8 @@
 package parser;
 
 
+import eval.State;
+
 public class LiteralAST extends ExpressionAST{
     private int value;
     public LiteralAST(int value){
@@ -13,7 +15,7 @@ public class LiteralAST extends ExpressionAST{
     }
 
     @Override
-    public int eval() {
+    public int eval(State<Integer> state, State<FuncDefAST> funcs) {
         return this.value;
     }
 }
